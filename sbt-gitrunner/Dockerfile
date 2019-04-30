@@ -1,5 +1,7 @@
 FROM gitlab/gitlab-runner:latest
 # Env variables
+MAINTAINER XIONGCHENYU <xiongchenyu6@gmail.com>
+
 ENV SCALA_VERSION 2.12.8
 ENV SBT_VERSION 1.2.8
 
