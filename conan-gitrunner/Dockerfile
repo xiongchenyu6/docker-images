@@ -6,19 +6,22 @@ ARG llvmver=8
 ADD llvm.list /
 ADD llvm-snapshot.gpg.key /
 ADD entrypoint /
-ADD default ~/.conan/profiles/default
 
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8611B7A28669BB93
 # Pre-Req Repos
 RUN apt update && \ 
- apt install -y software-properties-common gnupg && \
- apt-get upgrade -y && \
+ apt install -y software-properties-common gnupg apt-transport-https ca-certificates
+
+
+RUN apt-add-repository 'deb http://apt.kitware.com/ubuntu/ xenial main'
+
+RUN  apt-get upgrade -y && \
 # Install pre-reqs
  mv llvm.list /etc/apt/sources.list.d/ && \
  apt-key add llvm-snapshot.gpg.key && \
  rm llvm-snapshot.gpg.key  && \
  apt-get update  &&\
  apt-get install -y \
- ca-certificates \
  build-essential \
 #Install Tool
  clang-$llvmver \
@@ -31,15 +34,16 @@ RUN apt update && \
  libc++-$llvmver-dev \
  libc++abi-$llvmver-dev \
  libomp-$llvmver-dev \
- ca-certificates \
  wget \ 
  python3 \ 
  python3-pip \ 
  curl\ 
  git\ 
  cmake\
- apt-transport-https && \
  pip3 install conan && \
  chmod +x /entrypoint && \
  update-alternatives --install /usr/bin/cc cc /usr/bin/clang-8 100 && \
  update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-8 100
+
+RUN mkdir -p ~/.conan/profiles/
+ADD default ~/.conan/profiles/default
