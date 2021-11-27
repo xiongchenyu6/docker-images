@@ -1,0 +1,18 @@
+#+begin_src shell
+docker build -t xiongchenyu6/postgres-cdc-gcc .
+#+end_src
+
+#+RESULTS:
+
+#+begin_src shell
+docker run -d \
+--name postgres-container \
+-e POSTGRES_USER=chenyu \
+-e POSTGRES_PASSWORD=1 \
+-e PGDATA=/var/lib/postgresql/data/pgdata \
+-v $PWD/data:/var/lib/postgresql/data \
+-v $PWD/postgresql.conf:/etc/postgresql/postgresql.conf \
+-p 30432:5432 \
+xiongchenyu6/postgres-cdc-gcc \
+-c 'config_file=/etc/postgresql/postgresql.conf'
+#+end_src
