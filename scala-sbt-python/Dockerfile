@@ -1,4 +1,4 @@
-FROM hseeberger/scala-sbt:15.0.1_1.4.5_2.13.4 
+FROM hseeberger/scala-sbt:17.0.10_1.10.5_3.5.2 
 MAINTAINER XiongChenYu <xiongchenyu@bigo.sg>
 
 RUN apt update && \

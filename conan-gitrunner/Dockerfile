@@ -1,16 +1,16 @@
-FROM ubuntu:16.04
+FROM ubuntu:22.04
 
 ENV CONAN_USER_HOME=~
-ARG llvmver=8
+ARG llvmver=17
 
 ADD llvm.list /
 ADD llvm-snapshot.gpg.key /
 ADD entrypoint /
 
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8611B7A28669BB93 && \
-    apt update && \ 
-    apt install -y software-properties-common gnupg apt-transport-https ca-certificates && \
-    apt-add-repository 'deb http://apt.kitware.com/ubuntu/ xenial main' && \
+RUN apt update && \
+    apt install -y software-properties-common gnupg apt-transport-https ca-certificates wget && \
+    wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
+    apt-add-repository 'deb https://apt.kitware.com/ubuntu/ jammy main' && \
     apt-get upgrade -y && \
     # Install pre-reqs
     mv llvm.list /etc/apt/sources.list.d/ && \
@@ -38,8 +38,8 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8611B7A28669BB93 &&
     cmake && \
     pip3 install conan && \
     chmod +x /entrypoint && \
-    update-alternatives --install /usr/bin/cc cc /usr/bin/clang-8 100 && \
-    update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-8 100 &&\
+    update-alternatives --install /usr/bin/cc cc /usr/bin/clang-$llvmver 100 && \
+    update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-$llvmver 100 &&\
     mkdir -p ~/.conan/profiles/
 
 ADD default ~/.conan/profiles/default

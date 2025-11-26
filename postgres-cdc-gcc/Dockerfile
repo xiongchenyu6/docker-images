@@ -1,4 +1,4 @@
-FROM postgres
+FROM postgres:latest
 
 LABEL auther="freemanX"
 
