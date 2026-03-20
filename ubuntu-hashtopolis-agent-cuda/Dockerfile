@@ -1,5 +1,5 @@
 # Simple Hashtopolis Agent with CUDA support
-FROM nvidia/cuda:13.2.0-cudnn-devel-ubuntu24.04
+FROM nvidia/cuda:13.2.1-cudnn-devel-ubuntu24.04
 MAINTAINER XiongChenYu <xiongchenyu6@gmail.com>
 
 # Set environment variables

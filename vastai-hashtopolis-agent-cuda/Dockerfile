@@ -1,5 +1,5 @@
 # Simple Hashtopolis Agent with CUDA support
-FROM vastai/base-image:cuda-13.1.0-auto
+FROM vastai/base-image:cuda-13.2.0-auto
 MAINTAINER XiongChenYu <xiongchenyu6@gmail.com>
 
 # Set environment variables

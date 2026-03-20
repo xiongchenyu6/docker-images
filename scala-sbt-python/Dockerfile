@@ -1,4 +1,4 @@
-FROM hseeberger/scala-sbt:17.0.10_1.10.5_3.5.2 
+FROM sbtscala/scala-sbt:eclipse-temurin-25.0.1_8_1.12.11_3.8.3
 MAINTAINER XiongChenYu <xiongchenyu@bigo.sg>
 
 RUN apt update && \
